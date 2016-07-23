@@ -30,9 +30,9 @@ CREATE TABLE comments (
   body character varying(510) DEFAULT NULL,
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   updated_at timestamp with time zone NOT NULL DEFAULT now(),
+  post_id integer REFERENCES posts,
   user_id integer REFERENCES users,
-  comment_id integer REFERENCES posts,
   PRIMARY KEY (id)
 );
 
-
+\i ./scripts/blog_data.sql

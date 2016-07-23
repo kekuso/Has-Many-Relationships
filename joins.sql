@@ -31,13 +31,13 @@ SELECT posts.title, posts.content, users.username
 -- 7.
 SELECT posts.title AS post_title, *
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id;
+  INNER JOIN posts ON posts.id = comments.post_id;
 
 -- 8.
 SELECT posts.title AS post_title,
   posts.url AS post_url, comments.body AS comment_body
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   WHERE posts.created_at <= '2015-01-01';
 
 -- 9.
@@ -45,7 +45,7 @@ SELECT posts.title AS post_title,
   posts.url AS post_url,
   comments.body AS comment_body
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   WHERE posts.created_at >= '2015-01-01';
 
 -- 10.
@@ -53,7 +53,7 @@ SELECT posts.title AS post_title,
   posts.url AS post_url,
   comments.body AS comment_body
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   WHERE comments.body LIKE '%USB%';
 
 -- 11.
@@ -62,7 +62,7 @@ SELECT posts.title AS post_title,
   users.last_name,
   comments.body AS comment_body
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   INNER JOIN users ON users.id = comments.user_id
   WHERE comments.body LIKE '%matrix%';
 
@@ -72,7 +72,7 @@ SELECT users.first_name,
   comments.body AS comment_body
   FROM comments
   INNER JOIN users ON users.id = comments.user_id
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   WHERE comments.body LIKE '%SSL%' AND posts.content LIKE '%dolorum%';
 
 -- 13.
@@ -82,7 +82,7 @@ SELECT DISTINCT users.first_name AS post_author_first_name,
   users.username AS comment_author_username,
   comments.body AS comment_body
   FROM comments
-  INNER JOIN posts ON posts.id = comments.comment_id
+  INNER JOIN posts ON posts.id = comments.post_id
   INNER JOIN users ON users.id = comments.user_id
   WHERE (comments.body LIKE '%SSL%' OR comments.body LIKE '%firewall%') AND (posts.content LIKE '%nemo%');
 
@@ -90,21 +90,21 @@ SELECT DISTINCT users.first_name AS post_author_first_name,
 -- 1.
 SELECT posts.id AS post_id, posts.title AS post_title, users.id AS user_id
 FROM comments
-INNER JOIN posts ON posts.id = comments.comment_id
+INNER JOIN posts ON posts.id = comments.post_id
 INNER JOIN users ON users.id = comments.user_id
 WHERE (comments.user_id = posts.user_id);
 
 -- 2.
 SELECT COUNT(*)
 FROM comments
-INNER JOIN posts ON posts.id = comments.comment_id
+INNER JOIN posts ON posts.id = comments.post_id
 WHERE posts.created_at >= '2015-07-14';
 -- AND comments.created_at >= '2015-06-14';
 -- AND users.created_at >= '2015-06-14';
 
 SELECT users.username, posts.title, comments.created_at
 FROM comments
-INNER JOIN posts ON posts.id = comments.comment_id
+INNER JOIN posts ON posts.id = comments.post_id
 INNER JOIN users ON users.id = comments.user_id
 WHERE posts.created_at >= '2015-06-14'
 AND comments.created_at >= '2015-06-14'
@@ -113,6 +113,6 @@ AND users.created_at >= '2015-06-14';
 -- 3.
 SELECT users.username
 FROM comments
-INNER JOIN posts ON posts.id = comments.comment_id
+INNER JOIN posts ON posts.id = comments.post_id
 INNER JOIN users ON users.id = comments.user_id
 WHERE comments.body LIKE '%programming%';
